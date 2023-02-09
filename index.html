@@ -846,42 +846,6 @@ ul.nav-tabs {
   <script>
     // Script section to load models into a JS Var
     var defs = {}
-    defs["UserCreate"] = {
-  "required" : [ "country", "dateOfBirth", "email", "firstName", "languageCode", "lastName", "thirdPartyUserId" ],
-  "type" : "object",
-  "properties" : {
-    "thirdPartyUserId" : {
-      "type" : "string",
-      "description" : "Third party ID of the user"
-    },
-    "firstName" : {
-      "type" : "string",
-      "description" : "First name of the user"
-    },
-    "lastName" : {
-      "type" : "string",
-      "description" : "Last name of the user"
-    },
-    "languageCode" : {
-      "type" : "string",
-      "description" : "Language code of the user"
-    },
-    "email" : {
-      "type" : "string",
-      "description" : "Email of the user",
-      "format" : "email"
-    },
-    "country" : {
-      "type" : "string",
-      "description" : "Country of the user"
-    },
-    "dateOfBirth" : {
-      "type" : "string",
-      "description" : "Date of birth of the user",
-      "format" : "date"
-    }
-  }
-};
     defs["_v1_create_post_200_response"] = {
   "type" : "object",
   "properties" : {
@@ -1226,15 +1190,7 @@ pub fn main() {
                             <pre class="prettyprint"><code class="language-bsh">curl -X POST \
  -H "Accept: application/json" \
  "http://localhost:5001/v1/create" \
- -d '{
-  &quot;firstName&quot; : &quot;firstName&quot;,
-  &quot;lastName&quot; : &quot;lastName&quot;,
-  &quot;country&quot; : &quot;country&quot;,
-  &quot;thirdPartyUserId&quot; : &quot;thirdPartyUserId&quot;,
-  &quot;dateOfBirth&quot; : &quot;2000-01-23&quot;,
-  &quot;languageCode&quot; : &quot;languageCode&quot;,
-  &quot;email&quot; : &quot;email&quot;
-}'
+ -d ''
 </code></pre>
                           </div>
                           <div class="tab-pane" id="examples-Default-v1CreatePost-0-java">
@@ -1251,10 +1207,10 @@ public class DefaultApiExample {
 
         // Create an instance of the API class
         DefaultApi apiInstance = new DefaultApi();
-        UserCreate payload = ; // UserCreate | 
+        String kycExperienceId = kycExperienceId_example; // String | 
 
         try {
-            _v1_create_post_200_response result = apiInstance.v1CreatePost(payload);
+            _v1_create_post_200_response result = apiInstance.v1CreatePost(kycExperienceId);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling DefaultApi#v1CreatePost");
@@ -1271,10 +1227,10 @@ public class DefaultApiExample {
 public class DefaultApiExample {
     public static void main(String[] args) {
         DefaultApi apiInstance = new DefaultApi();
-        UserCreate payload = ; // UserCreate | 
+        String kycExperienceId = kycExperienceId_example; // String | 
 
         try {
-            _v1_create_post_200_response result = apiInstance.v1CreatePost(payload);
+            _v1_create_post_200_response result = apiInstance.v1CreatePost(kycExperienceId);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling DefaultApi#v1CreatePost");
@@ -1292,9 +1248,9 @@ public class DefaultApiExample {
 
 // Create an instance of the API class
 DefaultApi *apiInstance = [[DefaultApi alloc] init];
-UserCreate *payload = ; // 
+String *kycExperienceId = kycExperienceId_example; //  (optional)
 
-[apiInstance v1CreatePostWith:payload
+[apiInstance v1CreatePostWith:kycExperienceId
               completionHandler: ^(_v1_create_post_200_response output, NSError* error) {
     if (output) {
         NSLog(@"%@", output);
@@ -1311,7 +1267,9 @@ UserCreate *payload = ; //
 
 // Create an instance of the API class
 var api = new RiseIntegration.DefaultApi()
-var payload = ; // {UserCreate} 
+var opts = {
+  'kycExperienceId': kycExperienceId_example // {String} 
+};
 
 var callback = function(error, data, response) {
   if (error) {
@@ -1320,7 +1278,7 @@ var callback = function(error, data, response) {
     console.log('API called successfully. Returned data: ' + data);
   }
 };
-api.v1CreatePost(payload, callback);
+api.v1CreatePost(opts, callback);
 </code></pre>
                             </div>
 
@@ -1343,10 +1301,10 @@ namespace Example
 
             // Create an instance of the API class
             var apiInstance = new DefaultApi();
-            var payload = new UserCreate(); // UserCreate | 
+            var kycExperienceId = kycExperienceId_example;  // String |  (optional) 
 
             try {
-                _v1_create_post_200_response result = apiInstance.v1CreatePost(payload);
+                _v1_create_post_200_response result = apiInstance.v1CreatePost(kycExperienceId);
                 Debug.WriteLine(result);
             } catch (Exception e) {
                 Debug.Print("Exception when calling DefaultApi.v1CreatePost: " + e.Message );
@@ -1363,10 +1321,10 @@ require_once(__DIR__ . '/vendor/autoload.php');
 
 // Create an instance of the API class
 $api_instance = new OpenAPITools\Client\Api\DefaultApi();
-$payload = ; // UserCreate | 
+$kycExperienceId = kycExperienceId_example; // String | 
 
 try {
-    $result = $api_instance->v1CreatePost($payload);
+    $result = $api_instance->v1CreatePost($kycExperienceId);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling DefaultApi->v1CreatePost: ', $e->getMessage(), PHP_EOL;
@@ -1381,10 +1339,10 @@ use WWW::OPenAPIClient::DefaultApi;
 
 # Create an instance of the API class
 my $api_instance = WWW::OPenAPIClient::DefaultApi->new();
-my $payload = WWW::OPenAPIClient::Object::UserCreate->new(); # UserCreate | 
+my $kycExperienceId = WWW::OPenAPIClient::Object::String->new(); # String | 
 
 eval {
-    my $result = $api_instance->v1CreatePost(payload => $payload);
+    my $result = $api_instance->v1CreatePost(kycExperienceId => $kycExperienceId);
     print Dumper($result);
 };
 if ($@) {
@@ -1401,10 +1359,10 @@ from pprint import pprint
 
 # Create an instance of the API class
 api_instance = openapi_client.DefaultApi()
-payload =  # UserCreate | 
+kycExperienceId = kycExperienceId_example # String |  (optional)
 
 try:
-    api_response = api_instance.v1_create_post(payload)
+    api_response = api_instance.v1_create_post(kycExperienceId=kycExperienceId)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling DefaultApi->v1CreatePost: %s\n" % e)</code></pre>
@@ -1414,10 +1372,10 @@ except ApiException as e:
                               <pre class="prettyprint"><code class="language-rust">extern crate DefaultApi;
 
 pub fn main() {
-    let payload = ; // UserCreate
+    let kycExperienceId = kycExperienceId_example; // String
 
     let mut context = DefaultApi::Context::default();
-    let result = client.v1CreatePost(payload, &context).wait();
+    let result = client.v1CreatePost(kycExperienceId, &context).wait();
 
     println!("{:?}", result);
 }
@@ -1440,21 +1398,21 @@ pub fn main() {
                                 <th width="150px">Name</th>
                                 <th>Description</th>
                               </tr>
-                                <tr><td style="width:150px;">payload <span style="color:red;">*</span></td>
+                                <tr><td style="width:150px;">kycExperienceId </td>
 <td>
-<p class="marked">User object that needs to be created</p>
+<p class="marked">KYC experience ID of the user</p>
 <script>
 $(document).ready(function() {
   var schemaWrapper = {
-  "description" : "User object that needs to be created",
+  "description" : "KYC experience ID of the user",
   "content" : {
     "*/*" : {
       "schema" : {
-        "$ref" : "#/components/schemas/UserCreate"
+        "type" : "string"
       }
     }
   },
-  "required" : true
+  "required" : false
 };
 
   var schema = findNode('schema',schemaWrapper).schema;
@@ -1471,12 +1429,12 @@ $(document).ready(function() {
   }
 
   var view = new JSONSchemaView(schema,2,{isBodyParam: true});
-  var result = $('#d2e199_v1CreatePost_payload');
+  var result = $('#d2e199_v1CreatePost_kycExperienceId');
   result.empty();
   result.append(view.render());
 });
 </script>
-<div id="d2e199_v1CreatePost_payload"></div>
+<div id="d2e199_v1CreatePost_kycExperienceId"></div>
 </td>
 </tr>
 
