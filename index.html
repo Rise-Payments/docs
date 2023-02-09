@@ -846,6 +846,64 @@ ul.nav-tabs {
   <script>
     // Script section to load models into a JS Var
     var defs = {}
+    defs["UserCreate"] = {
+  "required" : [ "country", "dateOfBirth", "email", "firstName", "languageCode", "lastName", "thirdPartyUserId" ],
+  "type" : "object",
+  "properties" : {
+    "thirdPartyUserId" : {
+      "type" : "string",
+      "description" : "Third party ID of the user"
+    },
+    "firstName" : {
+      "type" : "string",
+      "description" : "First name of the user"
+    },
+    "lastName" : {
+      "type" : "string",
+      "description" : "Last name of the user"
+    },
+    "languageCode" : {
+      "type" : "string",
+      "description" : "Language code of the user"
+    },
+    "email" : {
+      "type" : "string",
+      "description" : "Email of the user",
+      "format" : "email"
+    },
+    "country" : {
+      "type" : "string",
+      "description" : "Country of the user"
+    },
+    "dateOfBirth" : {
+      "type" : "string",
+      "description" : "Date of birth of the user",
+      "format" : "date"
+    }
+  }
+};
+    defs["_v1_create_post_200_response"] = {
+  "type" : "object",
+  "properties" : {
+    "userId" : {
+      "type" : "string",
+      "description" : "ID of the created user"
+    },
+    "thirdPartyUserId" : {
+      "type" : "string",
+      "description" : "Third party ID of the created user"
+    }
+  }
+};
+    defs["_v1_create_post_409_response"] = {
+  "type" : "object",
+  "properties" : {
+    "status" : {
+      "type" : "string",
+      "example" : "user_already_exists"
+    }
+  }
+};
 
     var errs = {};
   </script>
@@ -864,9 +922,15 @@ ul.nav-tabs {
             -->
             <li class="nav-fixed nav-header active" data-group="_"><a href="#api-_">API Summary</a></li>
 
-                  <li class="nav-header" data-group="Default"><a href="#api-Default">API Methods - Default</a></li>
-                    <li data-group="Default" data-name="usersV1GetGet" class="">
-                      <a href="#api-Default-usersV1GetGet">usersV1GetGet</a>
+                  <li class="nav-header" data-group="Users"><a href="#api-Users">API Methods - Users</a></li>
+                    <li data-group="Users" data-name="usersV1BalancesGetGet" class="">
+                      <a href="#api-Users-usersV1BalancesGetGet">usersV1BalancesGetGet</a>
+                    </li>
+                    <li data-group="Users" data-name="usersV1GetGet" class="">
+                      <a href="#api-Users-usersV1GetGet">usersV1GetGet</a>
+                    </li>
+                    <li data-group="Users" data-name="v1CreatePost" class="">
+                      <a href="#api-Users-v1CreatePost">v1CreatePost</a>
                     </li>
           </ul>
         </nav>
@@ -889,10 +953,257 @@ ul.nav-tabs {
           </div>
         </div>
         <div id="sections">
-                <section id="api-Default">
-                  <h1>Default</h1>
-                    <div id="api-Default-usersV1GetGet">
-                      <article id="api-Default-usersV1GetGet-0" data-group="User" data-name="usersV1GetGet" data-version="0">
+                <section id="api-Users">
+                  <h1>Users</h1>
+                    <div id="api-Users-usersV1BalancesGetGet">
+                      <article id="api-Users-usersV1BalancesGetGet-0" data-group="User" data-name="usersV1BalancesGetGet" data-version="0">
+                        <div class="pull-left">
+                          <h1>usersV1BalancesGetGet</h1>
+                          <p>Fetch a user by id</p>
+                        </div>
+                        <div class="pull-right"></div>
+                        <div class="clearfix"></div>
+                        <p></p>
+                        <p class="marked">null</p>
+                        <p></p>
+                        <br />
+                        <pre class="prettyprint language-html prettyprinted" data-type="get"><code><span class="pln">/users/v1/balances/get</span></code></pre>
+                        <p>
+                          <h3>Usage and SDK Samples</h3>
+                        </p>
+                        <ul class="nav nav-tabs nav-tabs-examples">
+                          <li class="active"><a href="#examples-Users-usersV1BalancesGetGet-0-curl">Curl</a></li>
+                          <li class=""><a href="#examples-Users-usersV1BalancesGetGet-0-java">Java</a></li>
+                          <li class=""><a href="#examples-Users-usersV1BalancesGetGet-0-android">Android</a></li>
+                          <!--<li class=""><a href="#examples-Users-usersV1BalancesGetGet-0-groovy">Groovy</a></li>-->
+                          <li class=""><a href="#examples-Users-usersV1BalancesGetGet-0-objc">Obj-C</a></li>
+                          <li class=""><a href="#examples-Users-usersV1BalancesGetGet-0-javascript">JavaScript</a></li>
+                          <!--<li class=""><a href="#examples-Users-usersV1BalancesGetGet-0-angular">Angular</a></li>-->
+                          <li class=""><a href="#examples-Users-usersV1BalancesGetGet-0-csharp">C#</a></li>
+                          <li class=""><a href="#examples-Users-usersV1BalancesGetGet-0-php">PHP</a></li>
+                          <li class=""><a href="#examples-Users-usersV1BalancesGetGet-0-perl">Perl</a></li>
+                          <li class=""><a href="#examples-Users-usersV1BalancesGetGet-0-python">Python</a></li>
+                          <li class=""><a href="#examples-Users-usersV1BalancesGetGet-0-rust">Rust</a></li>
+                        </ul>
+
+                        <div class="tab-content">
+                          <div class="tab-pane active" id="examples-Users-usersV1BalancesGetGet-0-curl">
+                            <pre class="prettyprint"><code class="language-bsh">curl -X GET \
+ "http://localhost:5001/users/v1/balances/get"
+</code></pre>
+                          </div>
+                          <div class="tab-pane" id="examples-Users-usersV1BalancesGetGet-0-java">
+                            <pre class="prettyprint"><code class="language-java">import org.openapitools.client.*;
+import org.openapitools.client.auth.*;
+import org.openapitools.client.model.*;
+import org.openapitools.client.api.UsersApi;
+
+import java.io.File;
+import java.util.*;
+
+public class UsersApiExample {
+    public static void main(String[] args) {
+
+        // Create an instance of the API class
+        UsersApi apiInstance = new UsersApi();
+
+        try {
+            apiInstance.usersV1BalancesGetGet();
+        } catch (ApiException e) {
+            System.err.println("Exception when calling UsersApi#usersV1BalancesGetGet");
+            e.printStackTrace();
+        }
+    }
+}
+</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-Users-usersV1BalancesGetGet-0-android">
+                            <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.UsersApi;
+
+public class UsersApiExample {
+    public static void main(String[] args) {
+        UsersApi apiInstance = new UsersApi();
+
+        try {
+            apiInstance.usersV1BalancesGetGet();
+        } catch (ApiException e) {
+            System.err.println("Exception when calling UsersApi#usersV1BalancesGetGet");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+  <!--
+  <div class="tab-pane" id="examples-Users-usersV1BalancesGetGet-0-groovy">
+  <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+  </div> -->
+                            <div class="tab-pane" id="examples-Users-usersV1BalancesGetGet-0-objc">
+                              <pre class="prettyprint"><code class="language-cpp">
+
+// Create an instance of the API class
+UsersApi *apiInstance = [[UsersApi alloc] init];
+
+// Fetch a user by id
+[apiInstance usersV1BalancesGetGetWithCompletionHandler: 
+              ^(NSError* error) {
+    if (error) {
+        NSLog(@"Error: %@", error);
+    }
+}];
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Users-usersV1BalancesGetGet-0-javascript">
+                              <pre class="prettyprint"><code class="language-js">var RiseIntegration = require('rise_integration');
+
+// Create an instance of the API class
+var api = new RiseIntegration.UsersApi()
+var callback = function(error, data, response) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully.');
+  }
+};
+api.usersV1BalancesGetGet(callback);
+</code></pre>
+                            </div>
+
+                            <!--<div class="tab-pane" id="examples-Users-usersV1BalancesGetGet-0-angular">
+              <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+            </div>-->
+                            <div class="tab-pane" id="examples-Users-usersV1BalancesGetGet-0-csharp">
+                              <pre class="prettyprint"><code class="language-cs">using System;
+using System.Diagnostics;
+using Org.OpenAPITools.Api;
+using Org.OpenAPITools.Client;
+using Org.OpenAPITools.Model;
+
+namespace Example
+{
+    public class usersV1BalancesGetGetExample
+    {
+        public void main()
+        {
+
+            // Create an instance of the API class
+            var apiInstance = new UsersApi();
+
+            try {
+                // Fetch a user by id
+                apiInstance.usersV1BalancesGetGet();
+            } catch (Exception e) {
+                Debug.Print("Exception when calling UsersApi.usersV1BalancesGetGet: " + e.Message );
+            }
+        }
+    }
+}
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Users-usersV1BalancesGetGet-0-php">
+                              <pre class="prettyprint"><code class="language-php"><&#63;php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+// Create an instance of the API class
+$api_instance = new OpenAPITools\Client\Api\UsersApi();
+
+try {
+    $api_instance->usersV1BalancesGetGet();
+} catch (Exception $e) {
+    echo 'Exception when calling UsersApi->usersV1BalancesGetGet: ', $e->getMessage(), PHP_EOL;
+}
+?></code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Users-usersV1BalancesGetGet-0-perl">
+                              <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
+use WWW::OPenAPIClient::Configuration;
+use WWW::OPenAPIClient::UsersApi;
+
+# Create an instance of the API class
+my $api_instance = WWW::OPenAPIClient::UsersApi->new();
+
+eval {
+    $api_instance->usersV1BalancesGetGet();
+};
+if ($@) {
+    warn "Exception when calling UsersApi->usersV1BalancesGetGet: $@\n";
+}</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Users-usersV1BalancesGetGet-0-python">
+                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
+import time
+import openapi_client
+from openapi_client.rest import ApiException
+from pprint import pprint
+
+# Create an instance of the API class
+api_instance = openapi_client.UsersApi()
+
+try:
+    # Fetch a user by id
+    api_instance.users_v1_balances_get_get()
+except ApiException as e:
+    print("Exception when calling UsersApi->usersV1BalancesGetGet: %s\n" % e)</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Users-usersV1BalancesGetGet-0-rust">
+                              <pre class="prettyprint"><code class="language-rust">extern crate UsersApi;
+
+pub fn main() {
+
+    let mut context = UsersApi::Context::default();
+    let result = client.usersV1BalancesGetGet(&context).wait();
+
+    println!("{:?}", result);
+}
+</code></pre>
+                            </div>
+                          </div>
+
+                          <h2>Scopes</h2>
+                          <table>
+                            
+                          </table>
+
+                          <h2>Parameters</h2>
+
+
+
+
+
+
+                          <h2>Responses</h2>
+                            <h3 id="examples-Users-usersV1BalancesGetGet-title-200"></h3>
+                            <p id="examples-Users-usersV1BalancesGetGet-description-200" class="marked"></p>
+                            <script>
+                              var responseUsers200_description = `Returns a mysterious string.`;
+                              var responseUsers200_description_break = responseUsers200_description.indexOf('\n');
+                              if (responseUsers200_description_break == -1) {
+                                $("#examples-Users-usersV1BalancesGetGet-title-200").text("Status: 200 - " + responseUsers200_description);
+                              } else {
+                                $("#examples-Users-usersV1BalancesGetGet-title-200").text("Status: 200 - " + responseUsers200_description.substring(0, responseUsers200_description_break));
+                                $("#examples-Users-usersV1BalancesGetGet-description-200").html(responseUsers200_description.substring(responseUsers200_description_break));
+                              }
+                            </script>
+
+
+                            <ul id="responses-detail-Users-usersV1BalancesGetGet-200" class="nav nav-tabs nav-tabs-examples" >
+
+
+                            </ul>
+
+
+                            <div class="tab-content" id="responses-Users-usersV1BalancesGetGet-200-wrapper" style='margin-bottom: 10px;'>
+                            </div>
+                        </article>
+                      </div>
+                      <hr>
+                    <div id="api-Users-usersV1GetGet">
+                      <article id="api-Users-usersV1GetGet-0" data-group="User" data-name="usersV1GetGet" data-version="0">
                         <div class="pull-left">
                           <h1>usersV1GetGet</h1>
                           <p>Fetch a user by id</p>
@@ -908,45 +1219,45 @@ ul.nav-tabs {
                           <h3>Usage and SDK Samples</h3>
                         </p>
                         <ul class="nav nav-tabs nav-tabs-examples">
-                          <li class="active"><a href="#examples-Default-usersV1GetGet-0-curl">Curl</a></li>
-                          <li class=""><a href="#examples-Default-usersV1GetGet-0-java">Java</a></li>
-                          <li class=""><a href="#examples-Default-usersV1GetGet-0-android">Android</a></li>
-                          <!--<li class=""><a href="#examples-Default-usersV1GetGet-0-groovy">Groovy</a></li>-->
-                          <li class=""><a href="#examples-Default-usersV1GetGet-0-objc">Obj-C</a></li>
-                          <li class=""><a href="#examples-Default-usersV1GetGet-0-javascript">JavaScript</a></li>
-                          <!--<li class=""><a href="#examples-Default-usersV1GetGet-0-angular">Angular</a></li>-->
-                          <li class=""><a href="#examples-Default-usersV1GetGet-0-csharp">C#</a></li>
-                          <li class=""><a href="#examples-Default-usersV1GetGet-0-php">PHP</a></li>
-                          <li class=""><a href="#examples-Default-usersV1GetGet-0-perl">Perl</a></li>
-                          <li class=""><a href="#examples-Default-usersV1GetGet-0-python">Python</a></li>
-                          <li class=""><a href="#examples-Default-usersV1GetGet-0-rust">Rust</a></li>
+                          <li class="active"><a href="#examples-Users-usersV1GetGet-0-curl">Curl</a></li>
+                          <li class=""><a href="#examples-Users-usersV1GetGet-0-java">Java</a></li>
+                          <li class=""><a href="#examples-Users-usersV1GetGet-0-android">Android</a></li>
+                          <!--<li class=""><a href="#examples-Users-usersV1GetGet-0-groovy">Groovy</a></li>-->
+                          <li class=""><a href="#examples-Users-usersV1GetGet-0-objc">Obj-C</a></li>
+                          <li class=""><a href="#examples-Users-usersV1GetGet-0-javascript">JavaScript</a></li>
+                          <!--<li class=""><a href="#examples-Users-usersV1GetGet-0-angular">Angular</a></li>-->
+                          <li class=""><a href="#examples-Users-usersV1GetGet-0-csharp">C#</a></li>
+                          <li class=""><a href="#examples-Users-usersV1GetGet-0-php">PHP</a></li>
+                          <li class=""><a href="#examples-Users-usersV1GetGet-0-perl">Perl</a></li>
+                          <li class=""><a href="#examples-Users-usersV1GetGet-0-python">Python</a></li>
+                          <li class=""><a href="#examples-Users-usersV1GetGet-0-rust">Rust</a></li>
                         </ul>
 
                         <div class="tab-content">
-                          <div class="tab-pane active" id="examples-Default-usersV1GetGet-0-curl">
+                          <div class="tab-pane active" id="examples-Users-usersV1GetGet-0-curl">
                             <pre class="prettyprint"><code class="language-bsh">curl -X GET \
  "http://localhost:5001/users/v1/get"
 </code></pre>
                           </div>
-                          <div class="tab-pane" id="examples-Default-usersV1GetGet-0-java">
+                          <div class="tab-pane" id="examples-Users-usersV1GetGet-0-java">
                             <pre class="prettyprint"><code class="language-java">import org.openapitools.client.*;
 import org.openapitools.client.auth.*;
 import org.openapitools.client.model.*;
-import org.openapitools.client.api.DefaultApi;
+import org.openapitools.client.api.UsersApi;
 
 import java.io.File;
 import java.util.*;
 
-public class DefaultApiExample {
+public class UsersApiExample {
     public static void main(String[] args) {
 
         // Create an instance of the API class
-        DefaultApi apiInstance = new DefaultApi();
+        UsersApi apiInstance = new UsersApi();
 
         try {
             apiInstance.usersV1GetGet();
         } catch (ApiException e) {
-            System.err.println("Exception when calling DefaultApi#usersV1GetGet");
+            System.err.println("Exception when calling UsersApi#usersV1GetGet");
             e.printStackTrace();
         }
     }
@@ -954,31 +1265,31 @@ public class DefaultApiExample {
 </code></pre>
                           </div>
 
-                          <div class="tab-pane" id="examples-Default-usersV1GetGet-0-android">
-                            <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.DefaultApi;
+                          <div class="tab-pane" id="examples-Users-usersV1GetGet-0-android">
+                            <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.UsersApi;
 
-public class DefaultApiExample {
+public class UsersApiExample {
     public static void main(String[] args) {
-        DefaultApi apiInstance = new DefaultApi();
+        UsersApi apiInstance = new UsersApi();
 
         try {
             apiInstance.usersV1GetGet();
         } catch (ApiException e) {
-            System.err.println("Exception when calling DefaultApi#usersV1GetGet");
+            System.err.println("Exception when calling UsersApi#usersV1GetGet");
             e.printStackTrace();
         }
     }
 }</code></pre>
                           </div>
   <!--
-  <div class="tab-pane" id="examples-Default-usersV1GetGet-0-groovy">
+  <div class="tab-pane" id="examples-Users-usersV1GetGet-0-groovy">
   <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
   </div> -->
-                            <div class="tab-pane" id="examples-Default-usersV1GetGet-0-objc">
+                            <div class="tab-pane" id="examples-Users-usersV1GetGet-0-objc">
                               <pre class="prettyprint"><code class="language-cpp">
 
 // Create an instance of the API class
-DefaultApi *apiInstance = [[DefaultApi alloc] init];
+UsersApi *apiInstance = [[UsersApi alloc] init];
 
 // Fetch a user by id
 [apiInstance usersV1GetGetWithCompletionHandler: 
@@ -990,11 +1301,11 @@ DefaultApi *apiInstance = [[DefaultApi alloc] init];
 </code></pre>
                             </div>
 
-                            <div class="tab-pane" id="examples-Default-usersV1GetGet-0-javascript">
+                            <div class="tab-pane" id="examples-Users-usersV1GetGet-0-javascript">
                               <pre class="prettyprint"><code class="language-js">var RiseIntegration = require('rise_integration');
 
 // Create an instance of the API class
-var api = new RiseIntegration.DefaultApi()
+var api = new RiseIntegration.UsersApi()
 var callback = function(error, data, response) {
   if (error) {
     console.error(error);
@@ -1006,10 +1317,10 @@ api.usersV1GetGet(callback);
 </code></pre>
                             </div>
 
-                            <!--<div class="tab-pane" id="examples-Default-usersV1GetGet-0-angular">
+                            <!--<div class="tab-pane" id="examples-Users-usersV1GetGet-0-angular">
               <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
             </div>-->
-                            <div class="tab-pane" id="examples-Default-usersV1GetGet-0-csharp">
+                            <div class="tab-pane" id="examples-Users-usersV1GetGet-0-csharp">
                               <pre class="prettyprint"><code class="language-cs">using System;
 using System.Diagnostics;
 using Org.OpenAPITools.Api;
@@ -1024,13 +1335,13 @@ namespace Example
         {
 
             // Create an instance of the API class
-            var apiInstance = new DefaultApi();
+            var apiInstance = new UsersApi();
 
             try {
                 // Fetch a user by id
                 apiInstance.usersV1GetGet();
             } catch (Exception e) {
-                Debug.Print("Exception when calling DefaultApi.usersV1GetGet: " + e.Message );
+                Debug.Print("Exception when calling UsersApi.usersV1GetGet: " + e.Message );
             }
         }
     }
@@ -1038,38 +1349,38 @@ namespace Example
 </code></pre>
                             </div>
 
-                            <div class="tab-pane" id="examples-Default-usersV1GetGet-0-php">
+                            <div class="tab-pane" id="examples-Users-usersV1GetGet-0-php">
                               <pre class="prettyprint"><code class="language-php"><&#63;php
 require_once(__DIR__ . '/vendor/autoload.php');
 
 // Create an instance of the API class
-$api_instance = new OpenAPITools\Client\Api\DefaultApi();
+$api_instance = new OpenAPITools\Client\Api\UsersApi();
 
 try {
     $api_instance->usersV1GetGet();
 } catch (Exception $e) {
-    echo 'Exception when calling DefaultApi->usersV1GetGet: ', $e->getMessage(), PHP_EOL;
+    echo 'Exception when calling UsersApi->usersV1GetGet: ', $e->getMessage(), PHP_EOL;
 }
 ?></code></pre>
                             </div>
 
-                            <div class="tab-pane" id="examples-Default-usersV1GetGet-0-perl">
+                            <div class="tab-pane" id="examples-Users-usersV1GetGet-0-perl">
                               <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
 use WWW::OPenAPIClient::Configuration;
-use WWW::OPenAPIClient::DefaultApi;
+use WWW::OPenAPIClient::UsersApi;
 
 # Create an instance of the API class
-my $api_instance = WWW::OPenAPIClient::DefaultApi->new();
+my $api_instance = WWW::OPenAPIClient::UsersApi->new();
 
 eval {
     $api_instance->usersV1GetGet();
 };
 if ($@) {
-    warn "Exception when calling DefaultApi->usersV1GetGet: $@\n";
+    warn "Exception when calling UsersApi->usersV1GetGet: $@\n";
 }</code></pre>
                             </div>
 
-                            <div class="tab-pane" id="examples-Default-usersV1GetGet-0-python">
+                            <div class="tab-pane" id="examples-Users-usersV1GetGet-0-python">
                               <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
 import time
 import openapi_client
@@ -1077,21 +1388,21 @@ from openapi_client.rest import ApiException
 from pprint import pprint
 
 # Create an instance of the API class
-api_instance = openapi_client.DefaultApi()
+api_instance = openapi_client.UsersApi()
 
 try:
     # Fetch a user by id
     api_instance.users_v1_get_get()
 except ApiException as e:
-    print("Exception when calling DefaultApi->usersV1GetGet: %s\n" % e)</code></pre>
+    print("Exception when calling UsersApi->usersV1GetGet: %s\n" % e)</code></pre>
                             </div>
 
-                            <div class="tab-pane" id="examples-Default-usersV1GetGet-0-rust">
-                              <pre class="prettyprint"><code class="language-rust">extern crate DefaultApi;
+                            <div class="tab-pane" id="examples-Users-usersV1GetGet-0-rust">
+                              <pre class="prettyprint"><code class="language-rust">extern crate UsersApi;
 
 pub fn main() {
 
-    let mut context = DefaultApi::Context::default();
+    let mut context = UsersApi::Context::default();
     let result = client.usersV1GetGet(&context).wait();
 
     println!("{:?}", result);
@@ -1113,27 +1424,471 @@ pub fn main() {
 
 
                           <h2>Responses</h2>
-                            <h3 id="examples-Default-usersV1GetGet-title-200"></h3>
-                            <p id="examples-Default-usersV1GetGet-description-200" class="marked"></p>
+                            <h3 id="examples-Users-usersV1GetGet-title-200"></h3>
+                            <p id="examples-Users-usersV1GetGet-description-200" class="marked"></p>
                             <script>
-                              var responseDefault200_description = `Returns a mysterious string.`;
-                              var responseDefault200_description_break = responseDefault200_description.indexOf('\n');
-                              if (responseDefault200_description_break == -1) {
-                                $("#examples-Default-usersV1GetGet-title-200").text("Status: 200 - " + responseDefault200_description);
+                              var responseUsers200_description = `Returns a mysterious string.`;
+                              var responseUsers200_description_break = responseUsers200_description.indexOf('\n');
+                              if (responseUsers200_description_break == -1) {
+                                $("#examples-Users-usersV1GetGet-title-200").text("Status: 200 - " + responseUsers200_description);
                               } else {
-                                $("#examples-Default-usersV1GetGet-title-200").text("Status: 200 - " + responseDefault200_description.substring(0, responseDefault200_description_break));
-                                $("#examples-Default-usersV1GetGet-description-200").html(responseDefault200_description.substring(responseDefault200_description_break));
+                                $("#examples-Users-usersV1GetGet-title-200").text("Status: 200 - " + responseUsers200_description.substring(0, responseUsers200_description_break));
+                                $("#examples-Users-usersV1GetGet-description-200").html(responseUsers200_description.substring(responseUsers200_description_break));
                               }
                             </script>
 
 
-                            <ul id="responses-detail-Default-usersV1GetGet-200" class="nav nav-tabs nav-tabs-examples" >
+                            <ul id="responses-detail-Users-usersV1GetGet-200" class="nav nav-tabs nav-tabs-examples" >
 
 
                             </ul>
 
 
-                            <div class="tab-content" id="responses-Default-usersV1GetGet-200-wrapper" style='margin-bottom: 10px;'>
+                            <div class="tab-content" id="responses-Users-usersV1GetGet-200-wrapper" style='margin-bottom: 10px;'>
+                            </div>
+                        </article>
+                      </div>
+                      <hr>
+                    <div id="api-Users-v1CreatePost">
+                      <article id="api-Users-v1CreatePost-0" data-group="User" data-name="v1CreatePost" data-version="0">
+                        <div class="pull-left">
+                          <h1>v1CreatePost</h1>
+                          <p></p>
+                        </div>
+                        <div class="pull-right"></div>
+                        <div class="clearfix"></div>
+                        <p></p>
+                        <p class="marked">Creates a new user</p>
+                        <p></p>
+                        <br />
+                        <pre class="prettyprint language-html prettyprinted" data-type="post"><code><span class="pln">/v1/create</span></code></pre>
+                        <p>
+                          <h3>Usage and SDK Samples</h3>
+                        </p>
+                        <ul class="nav nav-tabs nav-tabs-examples">
+                          <li class="active"><a href="#examples-Users-v1CreatePost-0-curl">Curl</a></li>
+                          <li class=""><a href="#examples-Users-v1CreatePost-0-java">Java</a></li>
+                          <li class=""><a href="#examples-Users-v1CreatePost-0-android">Android</a></li>
+                          <!--<li class=""><a href="#examples-Users-v1CreatePost-0-groovy">Groovy</a></li>-->
+                          <li class=""><a href="#examples-Users-v1CreatePost-0-objc">Obj-C</a></li>
+                          <li class=""><a href="#examples-Users-v1CreatePost-0-javascript">JavaScript</a></li>
+                          <!--<li class=""><a href="#examples-Users-v1CreatePost-0-angular">Angular</a></li>-->
+                          <li class=""><a href="#examples-Users-v1CreatePost-0-csharp">C#</a></li>
+                          <li class=""><a href="#examples-Users-v1CreatePost-0-php">PHP</a></li>
+                          <li class=""><a href="#examples-Users-v1CreatePost-0-perl">Perl</a></li>
+                          <li class=""><a href="#examples-Users-v1CreatePost-0-python">Python</a></li>
+                          <li class=""><a href="#examples-Users-v1CreatePost-0-rust">Rust</a></li>
+                        </ul>
+
+                        <div class="tab-content">
+                          <div class="tab-pane active" id="examples-Users-v1CreatePost-0-curl">
+                            <pre class="prettyprint"><code class="language-bsh">curl -X POST \
+ -H "Accept: */*" \
+ "http://localhost:5001/v1/create" \
+ -d '{
+  &quot;firstName&quot; : &quot;firstName&quot;,
+  &quot;lastName&quot; : &quot;lastName&quot;,
+  &quot;country&quot; : &quot;country&quot;,
+  &quot;thirdPartyUserId&quot; : &quot;thirdPartyUserId&quot;,
+  &quot;dateOfBirth&quot; : &quot;2000-01-23&quot;,
+  &quot;languageCode&quot; : &quot;languageCode&quot;,
+  &quot;email&quot; : &quot;email&quot;
+}'
+</code></pre>
+                          </div>
+                          <div class="tab-pane" id="examples-Users-v1CreatePost-0-java">
+                            <pre class="prettyprint"><code class="language-java">import org.openapitools.client.*;
+import org.openapitools.client.auth.*;
+import org.openapitools.client.model.*;
+import org.openapitools.client.api.UsersApi;
+
+import java.io.File;
+import java.util.*;
+
+public class UsersApiExample {
+    public static void main(String[] args) {
+
+        // Create an instance of the API class
+        UsersApi apiInstance = new UsersApi();
+        UserCreate body = ; // UserCreate | 
+
+        try {
+            _v1_create_post_200_response result = apiInstance.v1CreatePost(body);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling UsersApi#v1CreatePost");
+            e.printStackTrace();
+        }
+    }
+}
+</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-Users-v1CreatePost-0-android">
+                            <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.UsersApi;
+
+public class UsersApiExample {
+    public static void main(String[] args) {
+        UsersApi apiInstance = new UsersApi();
+        UserCreate body = ; // UserCreate | 
+
+        try {
+            _v1_create_post_200_response result = apiInstance.v1CreatePost(body);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling UsersApi#v1CreatePost");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+  <!--
+  <div class="tab-pane" id="examples-Users-v1CreatePost-0-groovy">
+  <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+  </div> -->
+                            <div class="tab-pane" id="examples-Users-v1CreatePost-0-objc">
+                              <pre class="prettyprint"><code class="language-cpp">
+
+// Create an instance of the API class
+UsersApi *apiInstance = [[UsersApi alloc] init];
+UserCreate *body = ; // 
+
+[apiInstance v1CreatePostWith:body
+              completionHandler: ^(_v1_create_post_200_response output, NSError* error) {
+    if (output) {
+        NSLog(@"%@", output);
+    }
+    if (error) {
+        NSLog(@"Error: %@", error);
+    }
+}];
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Users-v1CreatePost-0-javascript">
+                              <pre class="prettyprint"><code class="language-js">var RiseIntegration = require('rise_integration');
+
+// Create an instance of the API class
+var api = new RiseIntegration.UsersApi()
+var body = ; // {UserCreate} 
+
+var callback = function(error, data, response) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
+};
+api.v1CreatePost(body, callback);
+</code></pre>
+                            </div>
+
+                            <!--<div class="tab-pane" id="examples-Users-v1CreatePost-0-angular">
+              <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+            </div>-->
+                            <div class="tab-pane" id="examples-Users-v1CreatePost-0-csharp">
+                              <pre class="prettyprint"><code class="language-cs">using System;
+using System.Diagnostics;
+using Org.OpenAPITools.Api;
+using Org.OpenAPITools.Client;
+using Org.OpenAPITools.Model;
+
+namespace Example
+{
+    public class v1CreatePostExample
+    {
+        public void main()
+        {
+
+            // Create an instance of the API class
+            var apiInstance = new UsersApi();
+            var body = new UserCreate(); // UserCreate | 
+
+            try {
+                _v1_create_post_200_response result = apiInstance.v1CreatePost(body);
+                Debug.WriteLine(result);
+            } catch (Exception e) {
+                Debug.Print("Exception when calling UsersApi.v1CreatePost: " + e.Message );
+            }
+        }
+    }
+}
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Users-v1CreatePost-0-php">
+                              <pre class="prettyprint"><code class="language-php"><&#63;php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+// Create an instance of the API class
+$api_instance = new OpenAPITools\Client\Api\UsersApi();
+$body = ; // UserCreate | 
+
+try {
+    $result = $api_instance->v1CreatePost($body);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling UsersApi->v1CreatePost: ', $e->getMessage(), PHP_EOL;
+}
+?></code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Users-v1CreatePost-0-perl">
+                              <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
+use WWW::OPenAPIClient::Configuration;
+use WWW::OPenAPIClient::UsersApi;
+
+# Create an instance of the API class
+my $api_instance = WWW::OPenAPIClient::UsersApi->new();
+my $body = WWW::OPenAPIClient::Object::UserCreate->new(); # UserCreate | 
+
+eval {
+    my $result = $api_instance->v1CreatePost(body => $body);
+    print Dumper($result);
+};
+if ($@) {
+    warn "Exception when calling UsersApi->v1CreatePost: $@\n";
+}</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Users-v1CreatePost-0-python">
+                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
+import time
+import openapi_client
+from openapi_client.rest import ApiException
+from pprint import pprint
+
+# Create an instance of the API class
+api_instance = openapi_client.UsersApi()
+body =  # UserCreate | 
+
+try:
+    api_response = api_instance.v1_create_post(body)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling UsersApi->v1CreatePost: %s\n" % e)</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Users-v1CreatePost-0-rust">
+                              <pre class="prettyprint"><code class="language-rust">extern crate UsersApi;
+
+pub fn main() {
+    let body = ; // UserCreate
+
+    let mut context = UsersApi::Context::default();
+    let result = client.v1CreatePost(body, &context).wait();
+
+    println!("{:?}", result);
+}
+</code></pre>
+                            </div>
+                          </div>
+
+                          <h2>Scopes</h2>
+                          <table>
+                            
+                          </table>
+
+                          <h2>Parameters</h2>
+
+
+
+                            <div class="methodsubtabletitle">Body parameters</div>
+                            <table id="methodsubtable">
+                              <tr>
+                                <th width="150px">Name</th>
+                                <th>Description</th>
+                              </tr>
+                                <tr><td style="width:150px;">body <span style="color:red;">*</span></td>
+<td>
+<p class="marked">User object that needs to be created</p>
+<script>
+$(document).ready(function() {
+  var schemaWrapper = {
+  "description" : "User object that needs to be created",
+  "content" : {
+    "*/*" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/UserCreate"
+      }
+    }
+  },
+  "required" : true
+};
+
+  var schema = findNode('schema',schemaWrapper).schema;
+  if (!schema) {
+    schema = schemaWrapper.schema;
+  }
+  if (schema.$ref != null) {
+    schema = defsParser.$refs.get(schema.$ref);
+  } else {
+    schemaWrapper.definitions = Object.assign({}, defs);
+    $RefParser.dereference(schemaWrapper).catch(function(err) {
+      console.log(err);
+    });
+  }
+
+  var view = new JSONSchemaView(schema,2,{isBodyParam: true});
+  var result = $('#d2e199_v1CreatePost_body');
+  result.empty();
+  result.append(view.render());
+});
+</script>
+<div id="d2e199_v1CreatePost_body"></div>
+</td>
+</tr>
+
+                            </table>
+
+
+
+                          <h2>Responses</h2>
+                            <h3 id="examples-Users-v1CreatePost-title-200"></h3>
+                            <p id="examples-Users-v1CreatePost-description-200" class="marked"></p>
+                            <script>
+                              var responseUsers200_description = `Successfully created the user`;
+                              var responseUsers200_description_break = responseUsers200_description.indexOf('\n');
+                              if (responseUsers200_description_break == -1) {
+                                $("#examples-Users-v1CreatePost-title-200").text("Status: 200 - " + responseUsers200_description);
+                              } else {
+                                $("#examples-Users-v1CreatePost-title-200").text("Status: 200 - " + responseUsers200_description.substring(0, responseUsers200_description_break));
+                                $("#examples-Users-v1CreatePost-description-200").html(responseUsers200_description.substring(responseUsers200_description_break));
+                              }
+                            </script>
+
+
+                            <ul id="responses-detail-Users-v1CreatePost-200" class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-Users-v1CreatePost-200-schema">Schema</a>
+                                </li>
+
+
+
+
+                            </ul>
+
+
+                            <div class="tab-content" id="responses-Users-v1CreatePost-200-wrapper" style='margin-bottom: 10px;'>
+                                <div class="tab-pane active" id="responses-Users-v1CreatePost-200-schema">
+                                  <div id="responses-Users-v1CreatePost-schema-200" class="exampleStyle">
+                                    <script>
+                                      $(document).ready(function() {
+                                        var schemaWrapper = ;
+                                        var schema = findNode('schema',schemaWrapper).schema;
+                                        if (!schema) {
+                                          schema = schemaWrapper.schema;
+                                        }
+                                        if (schema.$ref != null) {
+                                          schema = defsParser.$refs.get(schema.$ref);
+                                          Object.keys(schema.properties).forEach( (item) => {
+                                            if (schema.properties[item].$ref != null) {
+                                              schema.properties[item] = defsParser.$refs.get(schema.properties[item].$ref);
+                                            }
+                                          });
+                                        } else if (schema.items != null && schema.items.$ref != null) {
+                                            schema.items = defsParser.$refs.get(schema.items.$ref);
+                                        } else {
+                                          schemaWrapper.definitions = Object.assign({}, defs);
+                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                            console.log(err);
+                                          });
+                                        }
+
+                                        var view = new JSONSchemaView(schema, 3);
+                                        $('#responses-Users-v1CreatePost-200-schema-data').val(JSON.stringify(schema));
+                                        var result = $('#responses-Users-v1CreatePost-schema-200');
+                                        result.empty();
+                                        result.append(view.render());
+                                      });
+                                    </script>
+                                  </div>
+                                  <input id='responses-Users-v1CreatePost-200-schema-data' type='hidden' value=''></input>
+                                </div>
+                            </div>
+                            <h3 id="examples-Users-v1CreatePost-title-409"></h3>
+                            <p id="examples-Users-v1CreatePost-description-409" class="marked"></p>
+                            <script>
+                              var responseUsers409_description = `User with the same third party ID already exists`;
+                              var responseUsers409_description_break = responseUsers409_description.indexOf('\n');
+                              if (responseUsers409_description_break == -1) {
+                                $("#examples-Users-v1CreatePost-title-409").text("Status: 409 - " + responseUsers409_description);
+                              } else {
+                                $("#examples-Users-v1CreatePost-title-409").text("Status: 409 - " + responseUsers409_description.substring(0, responseUsers409_description_break));
+                                $("#examples-Users-v1CreatePost-description-409").html(responseUsers409_description.substring(responseUsers409_description_break));
+                              }
+                            </script>
+
+
+                            <ul id="responses-detail-Users-v1CreatePost-409" class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-Users-v1CreatePost-409-schema">Schema</a>
+                                </li>
+
+
+
+
+                            </ul>
+
+
+                            <div class="tab-content" id="responses-Users-v1CreatePost-409-wrapper" style='margin-bottom: 10px;'>
+                                <div class="tab-pane active" id="responses-Users-v1CreatePost-409-schema">
+                                  <div id="responses-Users-v1CreatePost-schema-409" class="exampleStyle">
+                                    <script>
+                                      $(document).ready(function() {
+                                        var schemaWrapper = ;
+                                        var schema = findNode('schema',schemaWrapper).schema;
+                                        if (!schema) {
+                                          schema = schemaWrapper.schema;
+                                        }
+                                        if (schema.$ref != null) {
+                                          schema = defsParser.$refs.get(schema.$ref);
+                                          Object.keys(schema.properties).forEach( (item) => {
+                                            if (schema.properties[item].$ref != null) {
+                                              schema.properties[item] = defsParser.$refs.get(schema.properties[item].$ref);
+                                            }
+                                          });
+                                        } else if (schema.items != null && schema.items.$ref != null) {
+                                            schema.items = defsParser.$refs.get(schema.items.$ref);
+                                        } else {
+                                          schemaWrapper.definitions = Object.assign({}, defs);
+                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                            console.log(err);
+                                          });
+                                        }
+
+                                        var view = new JSONSchemaView(schema, 3);
+                                        $('#responses-Users-v1CreatePost-409-schema-data').val(JSON.stringify(schema));
+                                        var result = $('#responses-Users-v1CreatePost-schema-409');
+                                        result.empty();
+                                        result.append(view.render());
+                                      });
+                                    </script>
+                                  </div>
+                                  <input id='responses-Users-v1CreatePost-409-schema-data' type='hidden' value=''></input>
+                                </div>
+                            </div>
+                            <h3 id="examples-Users-v1CreatePost-title-500"></h3>
+                            <p id="examples-Users-v1CreatePost-description-500" class="marked"></p>
+                            <script>
+                              var responseUsers500_description = `Internal error`;
+                              var responseUsers500_description_break = responseUsers500_description.indexOf('\n');
+                              if (responseUsers500_description_break == -1) {
+                                $("#examples-Users-v1CreatePost-title-500").text("Status: 500 - " + responseUsers500_description);
+                              } else {
+                                $("#examples-Users-v1CreatePost-title-500").text("Status: 500 - " + responseUsers500_description.substring(0, responseUsers500_description_break));
+                                $("#examples-Users-v1CreatePost-description-500").html(responseUsers500_description.substring(responseUsers500_description_break));
+                              }
+                            </script>
+
+
+                            <ul id="responses-detail-Users-v1CreatePost-500" class="nav nav-tabs nav-tabs-examples" >
+
+
+                            </ul>
+
+
+                            <div class="tab-content" id="responses-Users-v1CreatePost-500-wrapper" style='margin-bottom: 10px;'>
                             </div>
                         </article>
                       </div>
